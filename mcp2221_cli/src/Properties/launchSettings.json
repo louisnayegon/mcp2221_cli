@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "mcp2221_cli": {
+      "commandName": "Project",
+      "commandLineArgs": "mcp4728 channelwrite -a 96 -c A -v 64"
+    }
+  }
+}
