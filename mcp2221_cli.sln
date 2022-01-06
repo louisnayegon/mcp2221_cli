@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mcp2221_cli", "mcp2221_cli\src\mcp2221_cli.csproj", "{633D87E8-2B2D-4092-AF23-641BFDB9D282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mcp2221", "mcp2221\src\mcp2221.csproj", "{633D87E8-2B2D-4092-AF23-641BFDB9D282}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project Info", "Project Info", "{D99C5D00-90B5-470B-A7A9-5E758260E518}"
 	ProjectSection(SolutionItems) = preProject
