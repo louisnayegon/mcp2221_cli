@@ -22,4 +22,5 @@ jobs:
           dotnet restore mcp2221_cli.sln
       - name: Build
         run: |
-          dotnet build
+          dotnet build -c ${{ matrix.config }}
+

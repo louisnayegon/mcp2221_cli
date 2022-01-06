@@ -6,6 +6,7 @@ jobs:
   code-quality:
     strategy:
       matrix:
+        config: [Release]
         os: [ubuntu-20.04]
         language: ['csharp']
     runs-on: ${{ matrix.os }}
@@ -20,12 +21,8 @@ jobs:
         uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
-      - name: Restore
-        run: |
-          nuget restore mcp2221_cli.sln
-          dotnet restore mcp2221_cli.sln
       - name: Build
         run: |
-          dotnet build
+          dotnet build -c ${{ matrix.config }}
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
