@@ -19,7 +19,6 @@ namespace mcp2221_cli
             {
                 new CmdList(),
                 new CmdInfo(),
-                new CmdI2C(),
                 new CmdMcp4728()
             };
 
