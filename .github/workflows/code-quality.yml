@@ -22,7 +22,6 @@ jobs:
         with:
           languages: ${{ matrix.language }}
       - name: Build
-        run: |
-          dotnet build -c ${{ matrix.config }}
+        run: dotnet build -c ${{ matrix.config }}
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1

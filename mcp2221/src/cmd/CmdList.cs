@@ -9,8 +9,15 @@ namespace mcp2221_cli.cmd
     using Microsoft.Extensions.CommandLineUtils;
     using Smdn.Devices.MCP2221;
 
+    /// <summary>
+    /// List the address of devices available
+    /// </summary>
     internal class CmdList : Cmd
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <see cref="Cmd"/>
         public CmdList() : base("list", "List addresses of devices")
         {
             this.read = new("-r|--read", CommandOptionType.NoValue)
@@ -19,12 +26,20 @@ namespace mcp2221_cli.cmd
             { Description = "Devices that are writable" };
         }
 
+        /// <summary>
+        /// Add command options.  <see cref="Cmd.AddOptions(CommandLineApplication)"/>
+        /// </summary>
+        /// <param name="app">The app to add the options to</param>
         public override void AddOptions(CommandLineApplication app)
         {
             app.Options.Add(this.read);
             app.Options.Add(this.write);
         }
 
+        /// <summary>
+        /// Execute the command. <see cref="Cmd.Execute"/>
+        /// </summary>
+        /// <returns>Zero if no error occured</returns>
         public override int Execute()
         {
             int ret = 0;

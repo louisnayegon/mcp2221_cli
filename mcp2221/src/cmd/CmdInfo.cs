@@ -8,12 +8,23 @@ namespace mcp2221_cli.cmd
 {
     using Smdn.Devices.MCP2221;
 
+    /// <summary>
+    /// Get the device information
+    /// </summary>
+    /// <see cref="Cmd"/>
     internal class CmdInfo : Cmd
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CmdInfo() : base("info", "MCP2221 Info")
         {
         }
 
+        /// <summary>
+        /// Execute the command. <see cref="Cmd.Execute"/>
+        /// </summary>
+        /// <returns>Zero if no error occured</returns>
         public override int Execute()
         {
             int ret = 0;

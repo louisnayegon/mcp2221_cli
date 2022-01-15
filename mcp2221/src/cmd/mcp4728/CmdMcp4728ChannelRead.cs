@@ -9,8 +9,15 @@ namespace mcp2221_cli.cmd.mcp4728
     using Microsoft.Extensions.CommandLineUtils;
     using mcp2221_cli.validator;
 
+    /// <summary>
+    /// Read a channel command.
+    /// </summary>
+    /// <see cref="Cmd"/>
     internal class CmdMcp4728ChannelRead : Cmd
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CmdMcp4728ChannelRead() : base("channelread", "read channel data")
         {
             this.address = new("-a|--address", CommandOptionType.SingleValue)
@@ -19,12 +26,20 @@ namespace mcp2221_cli.cmd.mcp4728
             { Description = "The ADC channel. One of A,B,C or D" };
         }
 
+        /// <summary>
+        /// Add command options.  <see cref="Cmd.AddOptions(CommandLineApplication)"/>
+        /// </summary>
+        /// <param name="app">The app to add the options to</param>
         public override void AddOptions(CommandLineApplication app)
         {
             app.Options.Add(this.address);
             app.Options.Add(this.channel);
         }
 
+        /// <summary>
+        /// Execute the command. <see cref="Cmd.Execute"/>
+        /// </summary>
+        /// <returns>Zero if no error occured</returns>
         public override int Execute()
         {
             int ret = 0;

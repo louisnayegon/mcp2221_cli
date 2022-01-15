@@ -9,19 +9,34 @@ namespace mcp2221_cli.cmd.mcp4728
     using Microsoft.Extensions.CommandLineUtils;
     using mcp2221_cli.validator;
 
+    /// <summary>
+    /// Wake up command
+    /// </summary>
+    /// <see cref="Cmd"/>
     internal class CmdMcp4728WakeUp : Cmd
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CmdMcp4728WakeUp() : base("wakeup", "wakeup will reset the Power-Down bits")
         {
             this.address = new("-a|--address", CommandOptionType.SingleValue)
             { Description = "Address of the I2C device" };
         }
 
+        /// <summary>
+        /// Add command options.  <see cref="Cmd.AddOptions(CommandLineApplication)"/>
+        /// </summary>
+        /// <param name="app">The app to add the options to</param>
         public override void AddOptions(CommandLineApplication app)
         {
             app.Options.Add(this.address);
         }
 
+        /// <summary>
+        /// Execute the command. <see cref="Cmd.Execute"/>
+        /// </summary>
+        /// <returns>Zero if no error occured</returns>
         public override int Execute()
         {
             int ret = 0;

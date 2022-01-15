@@ -10,8 +10,15 @@ namespace mcp2221_cli.cmd.mcp4728
     using Smdn.Devices.MCP2221;
     using mcp2221_cli.validator;
 
+    /// <summary>
+    /// Command to get a list of I2C device addresses available
+    /// </summary>
+    /// <see cref="Cmd"/>
     internal class CmdMcp4728 : Cmd
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CmdMcp4728() : base("mcp4728", "mcp4728 I2C device")
         {
             this.address = new("-a|--address", CommandOptionType.SingleValue)
@@ -19,6 +26,10 @@ namespace mcp2221_cli.cmd.mcp4728
 
         }
 
+        /// <summary>
+        /// Add command options.  <see cref="Cmd.AddOptions(CommandLineApplication)"/>
+        /// </summary>
+        /// <param name="app">The app to add the options to</param>
         public override void AddOptions(CommandLineApplication app)
         {
             app.Options.Add(this.address);
@@ -44,6 +55,10 @@ namespace mcp2221_cli.cmd.mcp4728
             }
         }
 
+        /// <summary>
+        /// Execute the command. <see cref="Cmd.Execute"/>
+        /// </summary>
+        /// <returns>Zero if no error occured</returns>
         public override int Execute()
         {
             int ret = 0;

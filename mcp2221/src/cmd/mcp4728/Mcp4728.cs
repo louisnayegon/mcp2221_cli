@@ -9,10 +9,19 @@ namespace mcp2221_cli.cmd.mcp4728
     using Smdn.Devices.MCP2221;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Mcp4728 command interface
+    /// </summary>
     internal class Mcp4728
     {
+        /// <summary>
+        /// Mcp4728 channel data
+        /// </summary>
         public class Channel
         {
+            /// <summary>
+            /// Constructor
+            /// </summary>
             public Channel(int index)
             {
                 this.Index = index;
@@ -29,6 +38,9 @@ namespace mcp2221_cli.cmd.mcp4728
             public uint PowerState { get; set; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Mcp4728(int address)
         {
             this.address = new(address);

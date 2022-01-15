@@ -16,11 +16,17 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.100'
-      - name: Restore
+      - name: Install tools Ubuntu
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         run: |
-          nuget restore mcp2221_cli.sln
-          dotnet restore mcp2221_cli.sln
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-get install -y doxygen doxygen-doc doxygen-gui graphviz
+      - name: Tool versions
+        run: |
+          doxygen --version
+      - name: Create Documentation
+        run: |
+          doxygen ./docs/doxygen
+          dotnet build --no-restore -c ${{ matrix.config }} /p:DocumentationFile=codedoc.xml
       - name: Build
-        run: |
-          dotnet build -c ${{ matrix.config }}
-
+        run: dotnet build -c ${{ matrix.config }}
