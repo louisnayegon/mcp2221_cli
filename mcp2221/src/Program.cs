@@ -10,8 +10,15 @@ namespace mcp2221_cli
     using mcp2221_cli.cmd;
     using mcp2221_cli.cmd.mcp4728;
 
+    /// <summary>
+    /// The program
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Main entry point
+        /// </summary>
+        /// <param name="args">Program arguments</param>
         public static void Main(string[] args)
         {
             CommandLineApplication app = new(throwOnUnexpectedArg: false);
