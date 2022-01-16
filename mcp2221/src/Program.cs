@@ -17,6 +17,7 @@ namespace mcp2221_cli
             CommandLineApplication app = new(throwOnUnexpectedArg: false);
             List<ICommand> commands = new()
             {
+                new CmdGpio(),
                 new CmdList(),
                 new CmdInfo(),
                 new CmdMcp4728()

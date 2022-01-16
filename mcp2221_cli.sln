@@ -23,6 +23,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\code-quality.yml = .github\workflows\code-quality.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8B95B819-3877-43D2-9F0E-0A07F4D22067}"
+	ProjectSection(SolutionItems) = preProject
+		docs\doxygen = docs\doxygen
+		docs\DOXYGENHOME.md = docs\DOXYGENHOME.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5252BC44-50C2-47E5-907D-548A6FC42898} = {D99C5D00-90B5-470B-A7A9-5E758260E518}
 		{7A2D413F-38F8-46F0-9D0E-5F1DF155F1E7} = {5252BC44-50C2-47E5-907D-548A6FC42898}
+		{8B95B819-3877-43D2-9F0E-0A07F4D22067} = {D99C5D00-90B5-470B-A7A9-5E758260E518}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E39CEA4-9B8F-4E83-943A-53E98E40DCF1}

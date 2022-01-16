@@ -27,6 +27,6 @@ jobs:
       - name: Create Documentation
         run: |
           doxygen ./docs/doxygen
-          dotnet build --no-restore -c ${{ matrix.config }} /p:DocumentationFile=codedoc.xml
+          dotnet build -c ${{ matrix.config }} /p:DocumentationFile=codedoc.xml
       - name: Build
         run: dotnet build -c ${{ matrix.config }}
