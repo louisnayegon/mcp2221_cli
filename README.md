@@ -5,3 +5,5 @@
 [Contributing](./CONTRIBUTING.md)
 
 [LICENSE](./LICENSE.md)
+
+[![build](https://github.com/louisnayegon/mcp2221_cli/actions/workflows/build.yml/badge.svg)](https://github.com/louisnayegon/mcp2221_cli/actions/workflows/build.yml)

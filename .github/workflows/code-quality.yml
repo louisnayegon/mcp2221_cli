@@ -8,7 +8,10 @@ jobs:
       matrix:
         config: [Release]
         os: [ubuntu-20.04]
+        language: ['csharp']
+
     runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -18,17 +21,11 @@ jobs:
         with:
           dotnet-version: '6.0.100'
 
+      - name: Initialise CodeQL
+        uses: github/codeql-action/init@v1
+
       - name: Build
         run: dotnet build -c ${{ matrix.config }}
 
-      - name: Run .NET Code Analysis
-        uses: dotnet/code-analysis@main
-        id: code-analysis
-        with:
-          build-breaking: false
-
-      - name: Upload analysis results
-        uses: actions/upload-artifact@v2
-        with:
-          name: analysis_results.sarif
-          path: ${{ steps.code-analysis.outputs.sarifFile }}
+      - name: Perform CodeQL Analysis
+        uses: dotnet/codeql-action/analyze@v1
