@@ -12,21 +12,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Set .NET version to use
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.100'
+
       - name: Install tools Ubuntu
         if: ${{ matrix.os == 'ubuntu-20.04' }}
         run: |
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
           sudo apt-get install -y doxygen doxygen-doc doxygen-gui graphviz
+
       - name: Tool versions
         run: |
           doxygen --version
+
       - name: Create Documentation
         run: |
           doxygen ./docs/doxygen
           dotnet build -c ${{ matrix.config }} /p:DocumentationFile=codedoc.xml
+
       - name: Build
         run: dotnet build -c ${{ matrix.config }}
