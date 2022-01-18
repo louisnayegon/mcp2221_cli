@@ -8,6 +8,7 @@ namespace mcp2221_cli.cmd
 {
     using Microsoft.Extensions.CommandLineUtils;
     using Smdn.Devices.MCP2221;
+    using System.Device.Gpio;
 
     /// <summary>
     /// GPIO actions
@@ -36,6 +37,7 @@ namespace mcp2221_cli.cmd
         {
             app.Options.Add(this.write);
             app.Options.Add(this.id);
+            app.Options.Add(this.value);
         }
 
         /// <summary>
@@ -62,14 +64,34 @@ namespace mcp2221_cli.cmd
                 if (this.write.HasValue())
                 {
                     var gpio = gpios[int.Parse(this.id.Value())];
-                    var pinValue = gpio.GetValue();
+                    var pinValue = bool.Parse(this.value.Value());
 
-                    pinValue = bool.Parse(this.value.Value());
-                    gpio.SetValue(pinValue);
+                    try
+                    {
+                        SetValue(gpio, pinValue);
+                    }
+                    catch (Exception)
+                    {
+                        gpio.ConfigureAsGPIO();
+                        SetValue(gpio, pinValue);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("{device.GP0.GetValue}{device.GP1.GetValue}{device.GP2.GetValue}{device.GP3.GetValue}");
+                    foreach (var gpio in gpios.Values )
+                    {
+                        PinValue pinValue;
+                        try
+                        {
+                            pinValue = GetValue(gpio);
+                        }
+                        catch (Exception)
+                        {
+                            gpio.ConfigureAsGPIO();
+                            pinValue = GetValue(gpio);
+                        }
+                        Console.WriteLine($"{pinValue.Equals(PinValue.High)}");
+                    }
                 }
             }
             catch (Exception ex)
@@ -79,6 +101,27 @@ namespace mcp2221_cli.cmd
             }
 
             return ret;
+        }
+
+        /// <summary>
+        /// Get the pin value
+        /// </summary>
+        /// <param name="gpio">The gpio</param>
+        /// <returns>The value</returns>
+        private static PinValue GetValue(MCP2221.GPFunctionality gpio)
+        {
+            return gpio.GetValue();
+        }
+
+        /// <summary>
+        /// Get the pin value
+        /// </summary>
+        /// <param name="gpio">The gpio</param>
+        /// <param name="value">The value to set it to</param>
+        /// <returns></returns>
+        private static void SetValue(MCP2221.GPFunctionality gpio, bool value)
+        {
+            gpio.SetValue(value);
         }
 
         private readonly CommandOption write;

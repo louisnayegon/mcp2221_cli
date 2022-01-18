@@ -8,7 +8,6 @@ jobs:
       matrix:
         config: [Release]
         os: [ubuntu-20.04]
-        language: ['csharp']
 
     runs-on: ${{ matrix.os }}
 
@@ -21,11 +20,13 @@ jobs:
         with:
           dotnet-version: '6.0.100'
 
-      - name: Initialise CodeQL
-        uses: github/codeql-action/init@v1
-
-      - name: Build
-        run: dotnet build -c ${{ matrix.config }}
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v1
+      - name: Build and analyze
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=louisnayegon
+            -Dsonar.projectKey=louisnayegon_mcp2221_cli
+            -Dsonar.verbose=true
