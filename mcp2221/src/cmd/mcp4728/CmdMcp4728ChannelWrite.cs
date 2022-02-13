@@ -100,7 +100,7 @@ namespace mcp2221_cli.cmd.mcp4728
                         ch.Gain = Validators.ToUint(this.gain);
                     if (this.powerState.HasValue())
                         ch.PowerState = Validators.ToUint(this.powerState);
-                    mcp4728.UpdateChannel(Validators.ToChannel(this.channel), ch);
+                    mcp4728.UpdateChannel(ch);
                 }
             }
             catch (Exception ex)

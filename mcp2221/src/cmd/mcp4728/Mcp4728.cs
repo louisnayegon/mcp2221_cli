@@ -41,6 +41,7 @@ namespace mcp2221_cli.cmd.mcp4728
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="address">The address of the I2C device</param>
         public Mcp4728(int address)
         {
             this.address = new(address);
@@ -53,50 +54,76 @@ namespace mcp2221_cli.cmd.mcp4728
             this.ReadChannels();
         }
 
+        /// <summary>
+        /// Reset the device
+        /// </summary>
         public void Reset()
         {
             var toWrite = new byte[] {
                 MCP4728_CMD_GENERAL_CALL,
                 MCP4728_GENERAL_CALL_RESET_COMMAND };
-            this.SendCommand(toWrite);
+            this.Write(toWrite);
         }
 
+        /// <summary>
+        /// Wake up the device
+        /// </summary>
         public void WakeUp()
         {
             var toWrite = new byte[] {
                 MCP4728_CMD_GENERAL_CALL,
                 MCP4728_GENERAL_CALL_WAKEUP_COMMAND };
-            this.SendCommand(toWrite);
+            this.Write(toWrite);
         }
 
+        /// <summary>
+        /// Soft update
+        /// </summary>
         public void SoftUpdate()
         {
             var toWrite = new byte[] {
                 MCP4728_CMD_GENERAL_CALL,
                 MCP4728_GENERAL_CALL_SOFTWARE_UPDATE_COMMAND };
-            this.SendCommand(toWrite);
+            this.Write(toWrite);
         }
 
+        /// <summary>
+        /// Get the ADC chanel
+        /// </summary>
+        /// <param name="index">The index of the channel to get</param>
+        /// <returns></returns>
         public Channel GetChannel(uint index)
         {
             return this.channels[(int)index];
         }
 
-        public void UpdateChannel(uint index, Channel channel)
+        /// <summary>
+        /// Update the channel
+        /// </summary>
+        /// <param name="channel">The channel to update</param>
+        public void UpdateChannel(Channel channel)
         {
             var toWrite = new byte[] {
                 (byte)(MCP4728_CMD_WRITE_DAC | (channel.Index << 1)),
                 (byte)((channel.Value >> 8) | (channel.VRef << 7) | (channel.PowerState << 5) | (channel.Gain << 4)),
                 (byte)(channel.Value & 0xff)
             };
-            this.SendCommand(toWrite);
+            this.Write(toWrite);
         }
 
-        private void SendCommand(byte[] toWrite)
+        /// <summary>
+        /// Write to the device
+        /// </summary>
+        /// <param name="toWrite">Data to write</param>
+        private void Write(byte[] toWrite)
         {
             this.mcp2221.I2C.Write(this.address, toWrite);
         }
 
+        /// <summary>
+        /// Read all channels information
+        /// </summary>
+        /// <exception cref="Exception">ReadChannels failed</exception>
         private void ReadChannels()
         {
             byte[] buffer = new byte[24];
